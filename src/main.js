@@ -20,6 +20,20 @@ function initSplash() {
   
   if (!splash || !video) return;
 
+  const loadingText = document.getElementById('loading-text');
+  
+  // Wait for the video to buffer enough to play smoothly
+  const onVideoReady = () => {
+    if (loadingText) loadingText.classList.add('hidden');
+    if (startBtn) startBtn.classList.remove('hidden');
+  };
+
+  if (video.readyState >= 3) {
+    onVideoReady();
+  } else {
+    video.addEventListener('canplaythrough', onVideoReady);
+  }
+
   // Let user start the video so it can play with sound
   if (startBtn) {
     startBtn.addEventListener('click', () => {

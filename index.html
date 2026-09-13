@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>A Magical Birthday | Akka</title>
     <!-- Premium Google Fonts -->
@@ -17,14 +17,15 @@
     <!-- Video Splash Screen -->
     <div id="splash-screen" class="splash-screen">
       <div id="start-video-overlay" class="start-overlay">
-        <button id="start-btn" class="start-btn">Tap to Begin</button>
+        <p id="loading-text" class="loading-text">Preparing magic...</p>
+        <button id="start-btn" class="start-btn hidden">Tap to Begin</button>
       </div>
-      <video id="splash-video" src="/src/assets/Girl_holding_birthday_cake_1080p_20260913103948.mp4" playsinline></video>
+      <video id="splash-video" src="/src/assets/Girl_holding_birthday_cake_1080p_20260913103948.mp4" playsinline preload="auto"></video>
     </div>
 
     <!-- Celebration Video Overlay (Triggered by Candle) -->
     <div id="celebration-overlay" class="celebration-overlay hidden">
-      <video id="celebration-video" src="/src/assets/Girl_celebrating_birthday_with_cake_20260913104126.mp4" playsinline muted></video>
+      <video id="celebration-video" src="/src/assets/Girl_celebrating_birthday_with_cake_20260913104126.mp4" playsinline muted preload="auto"></video>
     </div>
 
     <!-- Transition Sound -->

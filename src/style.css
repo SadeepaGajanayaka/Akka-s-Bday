@@ -90,6 +90,7 @@ body.locked {
   z-index: 10;
   background: rgba(0, 0, 0, 0.7);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   transition: opacity 0.5s;
@@ -97,6 +98,19 @@ body.locked {
 .start-overlay.hidden {
   opacity: 0;
   pointer-events: none;
+}
+.loading-text {
+  font-family: var(--font-sans);
+  color: var(--accent-light-gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  font-size: 0.8rem;
+  animation: pulseOpacity 1.5s infinite alternate;
+}
+@keyframes pulseOpacity {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
 }
 .start-btn {
   padding: 1rem 2rem;
