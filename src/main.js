@@ -290,13 +290,17 @@ async function initCandle() {
       if (isBlownOut) return;
       
       analyser.getByteFrequencyData(dataArray);
-      let sum = 0;
-      for (let i = 0; i < bufferLength; i++) {
-        sum += dataArray[i];
+      
+      // When blowing air into a microphone, it creates a massive low-frequency rumble
+      // that easily peaks near the maximum value (255).
+      let maxVolume = 0;
+      for (let i = 0; i < 20; i++) { // Check lower frequencies
+        if (dataArray[i] > maxVolume) {
+          maxVolume = dataArray[i];
+        }
       }
-      const average = sum / bufferLength;
 
-      if (average > 120) { // Increased threshold to avoid background music triggering it
+      if (maxVolume > 230) { // High threshold specifically for peak wind noise
         blowOutCandle();
       } else {
         requestAnimationFrame(checkAudioLevel);
