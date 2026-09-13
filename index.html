@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Magical Birthday | Akka</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="locked">
+    
+    <!-- Video Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+      <div id="start-video-overlay" class="start-overlay">
+        <button id="start-btn" class="start-btn">Tap to Begin</button>
+      </div>
+      <video id="splash-video" src="/src/assets/Girl_holding_birthday_cake_1080p_20260913103948.mp4" playsinline></video>
+    </div>
+
+    <!-- Celebration Video Overlay (Triggered by Candle) -->
+    <div id="celebration-overlay" class="celebration-overlay hidden">
+      <video id="celebration-video" src="/src/assets/Girl_celebrating_birthday_with_cake_20260913104126.mp4" playsinline muted></video>
+    </div>
+
+    <!-- Transition Sound -->
+    <audio id="transition-sound">
+      <source src="https://assets.mixkit.co/sfx/preview/mixkit-magical-glitter-sweep-2670.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Audio Element -->
+    <audio id="bg-music" loop>
+      <!-- Premium Happy Birthday Track -->
+      <source src="/src/assets/leberch-happy-birthday-581704.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Intro Envelope / Gate Overlay -->
+    <div id="intro-gate" class="intro-gate">
+      <div class="gate-content">
+        <div class="seal" id="open-btn">
+          <div class="seal-inner">
+            <i data-lucide="cake" class="seal-emblem"></i>
+          </div>
+        </div>
+        <p class="tap-text">Tap the seal to open</p>
+      </div>
+      <div class="gate-left">
+        <div class="gate-pattern"></div>
+      </div>
+      <div class="gate-right">
+        <div class="gate-pattern"></div>
+      </div>
+    </div>
+
+    <!-- Music Control -->
+    <button id="music-toggle" class="music-toggle hidden">
+      <i data-lucide="music" stroke-width="1.5"></i>
+    </button>
+
+    <div id="main-content" class="main-wrapper">
+      
+      <!-- Falling Particles Canvas -->
+      <canvas id="particles-canvas" class="particles-overlay"></canvas>
+
+      <!-- Cinematic Hero -->
+      <section class="hero cinematic-section">
+        <div class="ken-burns-bg"></div>
+        <div class="hero-overlay"></div>
+        
+        <!-- Elegant SVG Arch Frame -->
+        <div class="arch-frame cinematic-fade">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="arch-svg">
+            <path d="M5,100 L5,40 C5,15 95,15 95,40 L95,100" fill="none" stroke="url(#gold-gradient)" stroke-width="0.5" />
+            <defs>
+              <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#D4AF37" />
+                <stop offset="50%" stop-color="#FFF2CD" />
+                <stop offset="100%" stop-color="#AA771C" />
+              </linearGradient>
+            </defs>
+          </svg>
+          
+          <div class="hero-content">
+            <p class="sub-heading cinematic-fade delay-1">Very Happy Birthday,</p>
+            <h1 class="script-title gold-text cinematic-fade delay-2">My Dearest Akka</h1>
+            <div class="divider cinematic-fade delay-3"></div>
+            <p class="date-text cinematic-fade delay-4">SEPTEMBER 13, 2026</p>
+          </div>
+        </div>
+        
+        <div class="scroll-down">
+          <div class="cinematic-fade delay-5">
+            <p>Scroll to begin</p>
+            <i data-lucide="chevron-down" class="bounce-slow" stroke-width="1"></i>
+          </div>
+        </div>
+      </section>
+
+      <!-- Countdown -->
+      <section class="countdown-section cinematic-section">
+        <div class="container cinematic-fade">
+          <h2 class="section-title">Let's Celebrate You In</h2>
+          <div class="countdown-grid" id="countdown">
+            <div class="time-box">
+              <span class="time-val" id="cd-days">00</span>
+              <span class="time-label">Days</span>
+            </div>
+            <div class="time-box">
+              <span class="time-val" id="cd-hours">00</span>
+              <span class="time-label">Hours</span>
+            </div>
+            <div class="time-box">
+              <span class="time-val" id="cd-mins">00</span>
+              <span class="time-label">Minutes</span>
+            </div>
+            <div class="time-box">
+              <span class="time-val" id="cd-secs">00</span>
+              <span class="time-label">Seconds</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Make a Wish (Candle) -->
+      <section class="wish-section cinematic-section">
+        <div class="container cinematic-fade">
+          <h2 class="script-title small gold-text">Make a Wish</h2>
+          <p class="elegant-text" id="candle-instruction">Blow gently into your microphone to cast your wish.</p>
+          
+          <div class="holder" id="candle-trigger">
+            <div class="candle">
+              <div class="blinking-glow" id="candle-glow-1"></div>
+              <div class="thread"></div>
+              <div class="glow" id="candle-glow-2"></div>
+              <div class="flame" id="flame"></div>
+            </div>
+          </div>
+          <div class="wish-message hidden" id="wish-text">May your deepest dreams unfold beautifully! ✨</div>
+        </div>
+      </section>
+
+      <!-- Timeline / Story -->
+      <section class="timeline-section cinematic-section">
+        <div class="container cinematic-fade">
+          <h2 class="section-title">Growing Up Together</h2>
+          <div class="timeline">
+            <div class="timeline-item cinematic-fade">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="gold-text-sub">My Guiding Light</h3>
+                <p>From the moment I was born, you've been the best older sister a little brother could ever ask for.</p>
+              </div>
+            </div>
+            <div class="timeline-item cinematic-fade">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="gold-text-sub">Endless Laughs</h3>
+                <p>From childhood mischief to our late-night talks, every memory with you is a treasure I hold close.</p>
+              </div>
+            </div>
+            <div class="timeline-item cinematic-fade">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <h3 class="gold-text-sub">Happy Birthday!</h3>
+                <p>Now we're both grown up, but you'll always be my amazing Akka. Cheers to you!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      <section class="gallery-section cinematic-section">
+        <div class="container cinematic-fade">
+          <h2 class="script-title small gold-text">Precious you</h2>
+          <div class="masonry-gallery" id="gallery-grid">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <footer class="cinematic-footer">
+        <p class="elegant-text">Made by your little brother</p>
+      </footer>
+      
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
