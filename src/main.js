@@ -126,7 +126,7 @@ function initParticles() {
     }
   }
 
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 40; i++) {
     particles.push(new Particle());
   }
 
@@ -286,6 +286,7 @@ async function initCandle() {
     const bufferLength = analyser.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
+    let audioLoopId;
     const checkAudioLevel = () => {
       if (isBlownOut) return;
       
@@ -303,19 +304,20 @@ async function initCandle() {
       if (maxVolume > 230) { // High threshold specifically for peak wind noise
         blowOutCandle();
       } else {
-        requestAnimationFrame(checkAudioLevel);
+        audioLoopId = requestAnimationFrame(checkAudioLevel);
       }
     };
     
-    // Only start listening when the user scrolls down to the candle
+    // Only listen when the user scrolls down to the candle
     const wishSection = document.querySelector('.wish-section');
     if (wishSection) {
       const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
           checkAudioLevel();
-          observer.disconnect();
+        } else {
+          cancelAnimationFrame(audioLoopId);
         }
-      }, { threshold: 0.5 });
+      }, { threshold: 0.1 });
       observer.observe(wishSection);
     } else {
       checkAudioLevel(); // fallback
