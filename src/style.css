@@ -51,7 +51,7 @@ body.locked {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 2s ease, visibility 2s;
+  transition: opacity 1s ease, visibility 1s;
 }
 .splash-screen.hidden {
   opacity: 0;
@@ -156,6 +156,7 @@ body.locked {
   z-index: 101;
   overflow: hidden;
   box-shadow: 0 0 50px rgba(0,0,0,0.8);
+  will-change: transform;
 }
 .gate-left { 
   left: 0; 

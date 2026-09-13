@@ -69,8 +69,22 @@ function initSplash() {
     }, 1500); // Wait for CSS transition
   };
 
-  // When video naturally ends
-  video.addEventListener('ended', fadeOutSplash);
+  let hasFadedOut = false;
+  video.addEventListener('timeupdate', () => {
+    // Trigger fadeout 1 second before the end to create a seamless cinematic crossfade
+    if (video.duration && video.duration - video.currentTime <= 1 && !hasFadedOut) {
+      hasFadedOut = true;
+      fadeOutSplash();
+    }
+  });
+  
+  // Fallback just in case timeupdate misses the window on very fast jumps
+  video.addEventListener('ended', () => {
+    if (!hasFadedOut) {
+      hasFadedOut = true;
+      fadeOutSplash();
+    }
+  });
 }
 
 // --- Falling Particles (Magic Dust/Sparkles) ---
