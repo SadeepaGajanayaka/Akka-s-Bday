@@ -22,17 +22,14 @@ function initSplash() {
 
   const loadingText = document.getElementById('loading-text');
   
-  // Wait for the video to buffer enough to play smoothly
   const onVideoReady = () => {
     if (loadingText) loadingText.classList.add('hidden');
     if (startBtn) startBtn.classList.remove('hidden');
   };
 
-  if (video.readyState >= 3) {
-    onVideoReady();
-  } else {
-    video.addEventListener('canplaythrough', onVideoReady);
-  }
+  // iOS blocks video preloading for videos with sound until the user taps the screen.
+  // Since we shrunk the video to 400KB, it will load instantly upon tapping anyway!
+  onVideoReady();
 
   // Let user start the video so it can play with sound
   if (startBtn) {
